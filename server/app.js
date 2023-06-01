@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import userRoute from "./routes/userRouter.js";
 import { errorHandler, notfound } from "./middleware/errorMiddleware.js";
 import dbConnect from "./config/dataBase.js";
+
 dotenv.config();
 
 const app = express();
@@ -11,6 +12,7 @@ dbConnect();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+
 app.use("/users", userRoute);
 app.get("/", (req, res) => {
   console.log("server is ready");
