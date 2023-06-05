@@ -10,8 +10,8 @@ function App() {
       <Router>
         <Routes>
          <Route path='/' element={<HomeScreen/>}/>
-         <Route path='/Login' element={<LoginScreen/>}/>
-         <Route path='/Register' element={<RegisterScreen/>}/>
+         <Route path='/login' element={<LoginScreen/>}/>
+         <Route path='/register' element={<RegisterScreen/>}/>
         </Routes>
       </Router>
      

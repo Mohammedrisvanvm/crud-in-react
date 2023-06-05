@@ -16,7 +16,7 @@ const LoginForm = () => {
        
        <Container className='d-flex justify-content-center'>
        <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75 justify-content-center'>
-       <h1>Sign in</h1>
+       <h1>Login</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className='my-2' controlId='email'>
             <Form.Label>Email Address</Form.Label>
@@ -40,7 +40,7 @@ const LoginForm = () => {
   <div className='d-flex justify-content-center py-3'>
     
           <Button type='submit' variant='primary' >
-            Sign In
+            Login
           </Button>
   </div>
         </Form>
