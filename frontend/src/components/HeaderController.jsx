@@ -6,13 +6,13 @@ const HeaderController = () => {
   return (
    <>
        <Nav.Link >
-              <Link to={`/login`}> <FaSignInAlt /> Login</Link>
+              <Link to={`/login`} className=' text-decoration-none text-white'> <FaSignInAlt /> Login</Link>
                
                
               </Nav.Link>
          
               <Nav.Link >
-              <Link to={`/register`}> <FaSignOutAlt />Register</Link>
+              <Link to={`/register`} className=' text-decoration-none text-white'> <FaSignOutAlt />Register</Link>
               </Nav.Link>
    </>
   )

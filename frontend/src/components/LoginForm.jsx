@@ -47,7 +47,7 @@ const LoginForm = () => {
  
         <Row className='py-3'>
           <Col>
-            New Customer? <Link to={`/register`}>Register</Link>
+            New Customer? <Link to={`/register`} className=' text-decoration-none'>Register</Link>
           </Col>
         </Row>
         </Card>
