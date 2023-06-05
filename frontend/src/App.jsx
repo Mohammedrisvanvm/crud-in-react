@@ -14,8 +14,6 @@ function App() {
          <Route path='/register' element={<RegisterScreen/>}/>
         </Routes>
       </Router>
-     
-      
     </div>
   )
 }
