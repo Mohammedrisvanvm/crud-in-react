@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 const Hero = () => {
 const Navigate=useNavigate()
 const HandleLogin=()=>{
-  Navigate('/login')
+  Navigate('/Login')
 } 
 const HandleRegister=()=>{
   console.log("hai");
-  Navigate('/register')
+  Navigate('/Register')
 }
  return (
     <div className='py-5'>
