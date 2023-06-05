@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from 'cors'
+// import cors from 'cors'
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/userRouter.js";
 import { errorHandler, notfound } from "./middleware/errorMiddleware.js";
@@ -13,14 +13,14 @@ dbConnect();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000", 
-    ],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:3000", 
+//     ],
+//     credentials: true,
+//   })
+// );
 app.use("/users", userRoute);
 app.get("/", (req, res) => {
   console.log("server is ready");
