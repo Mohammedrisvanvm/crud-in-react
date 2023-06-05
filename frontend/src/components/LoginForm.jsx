@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col,Container,Card } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/userApiSlice';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +11,15 @@ const LoginForm = () => {
     const dispatch=useDispatch()
 
     const [login,{isloading}]=useLoginMutation()
-    
+
+    const {userInfo}=useSelector((state)=>state.auth)
+
+
+    useEffect(()=>{
+        if(userInfo){
+            navigate('/')
+        }
+    },[userInfo,navigate])
     const submitHandler = async (e) => {
       e.preventDefault();
       console.log(email);
