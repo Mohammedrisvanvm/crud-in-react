@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col,Container,Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '../slices/userApiSlice';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const navigate=useNavigate()
     const dispatch=useDispatch()
+
+    const [login,{isloading}]=useLoginMutation()
+    
     const submitHandler = async (e) => {
       e.preventDefault();
       console.log(email);
