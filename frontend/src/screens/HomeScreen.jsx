@@ -1,12 +1,14 @@
-import React from 'react'
-import Hero from '../components/Hero'
+import React from "react";
+import Hero from "../components/Hero";
+import Header from "../components/header";
 
 function HomeScreen() {
   return (
     <>
-   <Hero/>
+      <Header />
+      <Hero />
     </>
-  )
+  );
 }
 
-export default HomeScreen
+export default HomeScreen;

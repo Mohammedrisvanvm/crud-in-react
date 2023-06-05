@@ -8,7 +8,7 @@ const Header = () => {
   
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand href="/">MERN App</Navbar.Brand>
+          <Navbar.Brand href="/">CRUD App</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
