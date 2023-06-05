@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/AuthSlice";
 
@@ -24,19 +24,16 @@ const LoginForm = () => {
     }
   }, [userInfo, navigate]);
 
-
   const submitHandler = async (e) => {
-
     e.preventDefault();
 
     try {
-        const res=await login({email,password}).unwrap()
-        dispatch(setCredentials({...res}))
-        navigate('/')
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
     } catch (err) {
-        toast.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error);
     }
-   
   };
 
   return (
