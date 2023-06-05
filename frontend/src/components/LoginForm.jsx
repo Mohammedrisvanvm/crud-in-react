@@ -1,20 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col,Container,Card } from 'react-bootstrap';
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const submitHandler = async (e) => {
       e.preventDefault();
-      console.log('submit');
+      console.log(email);
+      console.log(password)
     };
   
     return (
-     <>
-    
-        <h1>Sign In</h1>
-  
+     <div className='py-5'>
+       
+       <Container className='d-flex justify-content-center'>
+       <Card className='p-5 d-flex flex-column align-items-center hero-card bg-light w-75 justify-content-center'>
+       <h1>Sign in</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className='my-2' controlId='email'>
             <Form.Label>Email Address</Form.Label>
@@ -35,18 +37,24 @@ const LoginForm = () => {
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
-  
-          <Button type='submit' variant='primary' className='mt-3'>
+  <div className='d-flex justify-content-center py-3'>
+    
+          <Button type='submit' variant='primary' >
             Sign In
           </Button>
+  </div>
         </Form>
-  
+ 
         <Row className='py-3'>
           <Col>
             New Customer? <Link to={`/register`}>Register</Link>
           </Col>
         </Row>
-        </>
+        </Card>
+       
+        </Container>
+        </div>
+      
     );
   };
   
