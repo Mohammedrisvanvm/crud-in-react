@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
 const USER_URL='/users'
+const ADMIN_URL='/admin'
 
 
 export const userApiSlice=apiSlice.injectEndpoints({
@@ -22,6 +23,13 @@ export const userApiSlice=apiSlice.injectEndpoints({
             query:(data)=>({
                 url:`${USER_URL}`,
                 method: 'POST',
+                body:data,
+            })
+        }),
+        userUpdate:builder.mutation({
+            query:(data)=>({
+                url:`${ADMIN_URL}/profile`,
+                method: 'PUT',
                 body:data,
             })
         }),

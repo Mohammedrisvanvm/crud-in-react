@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
+import { toast } from 'react-toastify';
 function EditForm() {
     let {id}=useParams()
 
@@ -24,7 +25,15 @@ setUser(response.data)
 
     const submitHandler = async (e) => {
         e.preventDefault();
-       
+       if(password!==confirmPassword){
+        toast.error('password do not match')
+       }else{
+        try {
+            
+        } catch (error) {
+            
+        }
+       }
     }
   return (
     <Container className="d-flex justify-content-center py-3">
