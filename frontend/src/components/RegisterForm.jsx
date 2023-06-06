@@ -36,8 +36,10 @@ const RegisterForm = () => {
         if(userInfo){
 
           dispatch(setCredentials({ ...res }));
+          toast.success('account created successfully')
           navigate("/");
         }else{
+          toast.success('created a user account')
           navigate("/admin")
         }
       } catch (err) {
