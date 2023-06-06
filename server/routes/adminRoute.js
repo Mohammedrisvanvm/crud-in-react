@@ -7,7 +7,7 @@ const route=Router()
 route.get('/', adminHome)
 route.post('/adminAuth',authAdmin)
 route.get('/userUnique/:id',userUnique)
-router.put('/profile',updateUserProfile)
+route.put('/profile',updateUserProfile)
 
 
 

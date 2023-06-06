@@ -30,23 +30,24 @@ export const authAdmin = asyncHandler(async (req, res) => {
     res.json(userData)
   })
   export const updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    console.log(req.body);
+    const { id, name, email, password } = req.body; 
+  
+    const user = await User.findByIdAndUpdate(id); 
   
     if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
+      user.name = name || user.name; 
+      user.email = email || user.email;
   
-      if (req.body.password) {
-        user.password = req.body.password;
+      if (password) {
+        user.password = password;
       }
+  
       const updatedUser = await user.save();
-      res.status(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name, 
-        email: updatedUser.email,
-      });
+      res.status(200).json({ success: true });
     } else {
       res.status(404);
-      throw new Error("user not found");
+      throw new Error('User not found');
     }
   });
+  
