@@ -30,7 +30,7 @@ export const authAdmin = asyncHandler(async (req, res) => {
     res.json(userData)
   })
   export const updateUserProfile = asyncHandler(async (req, res) => {
-    console.log(req.body);
+   
     const { id, name, email, password } = req.body; 
   
     const user = await User.findByIdAndUpdate(id); 

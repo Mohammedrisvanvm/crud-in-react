@@ -26,8 +26,8 @@ function UserInfoTable() {
       setUserInfo(response.data);
     });
   }, [setUserInfo]);
-const editpageHandler=(e)=>{
- 
+const DeleteUser=()=>{
+ console.log("hai");
 
 }
   return (
@@ -66,8 +66,8 @@ const editpageHandler=(e)=>{
                       </IconButton>
                     </TableCell>
                     <TableCell>
-                      <IconButton>
-                        <DeleteIcon color="error" />
+                      <IconButton onClick={DeleteUser}>
+                        <DeleteIcon  color="error"  />
                       </IconButton>
                     </TableCell>
                   </TableRow>
