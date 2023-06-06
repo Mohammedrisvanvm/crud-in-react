@@ -24,3 +24,8 @@ export const authAdmin = asyncHandler(async (req, res) => {
       throw new Error("invalid email or password");
     }
   });
+  export const userUnique=asyncHandler(async(req,res)=>{
+    let {id}=req.params
+    const userData=await User.findOne({_id:id})
+    res.json(userData)
+  })

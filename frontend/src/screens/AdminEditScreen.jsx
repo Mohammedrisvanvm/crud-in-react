@@ -3,9 +3,10 @@ import AdminHeader from '../components/adminHeader'
 import EditForm from '../components/editForm'
 
 function AdminEditScreen() {
+   
   return (
     <>
-    <AdminHeader/>
+<AdminHeader/>
     <EditForm/>
     </>
   )

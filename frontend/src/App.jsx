@@ -23,7 +23,7 @@ function App() {
           <Route path="/profile" element={<ProfileScreen/>} />
           </Route>
         <Route path="/admin" element={<AdminHomeScreen/>} />
-        <Route path="/admin/editUser" element={<AdminEditScreen/>} />
+        <Route path="/admin/editUser/:id" element={<AdminEditScreen/>} />
         </Routes>
       </Router>
     </div>

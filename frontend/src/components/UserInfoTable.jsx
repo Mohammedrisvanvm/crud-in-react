@@ -15,16 +15,21 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function UserInfoTable() {
   const [userInfo, setUserInfo] = useState([]);
+  const Navigate=useNavigate()
   useEffect(() => {
     axios.get("http://localhost:5000/admin").then((response) => {
       console.log(response.data);
       setUserInfo(response.data);
     });
   }, [setUserInfo]);
+const editpageHandler=(e)=>{
+ 
 
+}
   return (
     <>
       <div
@@ -49,13 +54,15 @@ function UserInfoTable() {
               </TableHead>
               <TableBody>
                 {userInfo.map((row, index) => (
-                  <TableRow key={row.id}>
+                  <TableRow key={row._id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>
-                      <IconButton>
-                        <EditIcon />
+                      <IconButton onClick={()=>Navigate(`/admin/editUser/${row._id}`)}>
+                        <EditIcon >
+                        
+                        </EditIcon>
                       </IconButton>
                     </TableCell>
                     <TableCell>

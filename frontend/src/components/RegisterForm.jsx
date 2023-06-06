@@ -45,7 +45,7 @@ const RegisterForm = () => {
     <>
       <Container className="d-flex justify-content-center py-3">
         <Card className="p-5 d-flex flex-column align-items-center hero-card bg-light w-75 justify-content-center">
-          <h1>Register</h1>
+        <h1>Register</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group className="my-2" controlId="name">
               <Form.Label>Name</Form.Label>
