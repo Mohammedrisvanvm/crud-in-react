@@ -61,6 +61,7 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            {isloading && <h2>loading...</h2> }
             <div className="d-flex justify-content-center py-3">
               <Button type="submit" variant="primary">
                 Login
