@@ -13,8 +13,11 @@ const navigate=useNavigate()
   const [logoutApiCall]=useLogoutMutation();
 const logoutHandler=async()=>{
 try {
-  await 
-} catch (error) {
+  await logoutApiCall().unwrap()
+  dispatch(logout())
+  navigate('/')
+} catch (err) {
+  console.log(err);
   
 }
 }
