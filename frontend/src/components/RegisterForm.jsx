@@ -1,28 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/AuthSlice";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import Loader from "./Loader";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-const dispatch=useDispatch()
-const navigate=useNavigate()
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const [register, { isloading }] = useRegisterMutation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(userInfo){
+      navigate('/')
+    }
+  },[userInfo,navigate])
+  
   const submitHandler = async (e) => {
     e.preventDefault();
-    if(password!==confirmPassword){
-      toast.error('password do not match')
-    }else{
+    if (password !== confirmPassword) {
+      toast.error("password do not match");
+    } else {
       try {
-        const res=await register({name,email,password}).unwrap()
-        dispatch(setCredentials({...res}))
-        navigate('/')
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
       } catch (err) {
-        toast.error(err?.data?.message||err.error)
+        toast.error(err?.data?.message || err.error);
       }
     }
   };
@@ -71,8 +85,9 @@ const navigate=useNavigate()
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
+
+            {isloading && <Loader/>}
             <div className="d-flex justify-content-center py-3">
-              
               <Button type="submit" variant="primary" className="mt-3">
                 Register
               </Button>
@@ -81,7 +96,10 @@ const navigate=useNavigate()
 
           <Row className="py-3">
             <Col>
-              Already have an account? <Link to={`/login`} className=" text-decoration-none">Login</Link>
+              Already have an account?{" "}
+              <Link to={`/login`} className=" text-decoration-none">
+                Login
+              </Link>
             </Col>
           </Row>
         </Card>
