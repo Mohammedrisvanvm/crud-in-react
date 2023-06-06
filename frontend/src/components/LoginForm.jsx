@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/AuthSlice";
+import Loader from "./Loader";
 
 
 const LoginForm = () => {
@@ -61,7 +62,7 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            {isloading && <h2>loading...</h2> }
+            {isloading && <Loader/> }
             <div className="d-flex justify-content-center py-3">
               <Button type="submit" variant="primary">
                 Login
