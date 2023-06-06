@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
@@ -10,7 +11,15 @@ const RegisterForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(name, email, password, confirmPassword);
+    if(password!==confirmPassword){
+      toast.error('password do not match')
+    }else{
+      try {
+        const res=await 
+      } catch (error) {
+        
+      }
+    }
   };
 
   return (
