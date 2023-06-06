@@ -1,10 +1,13 @@
 import React from 'react'
+import AdminHeader from '../components/adminHeader'
+import EditForm from '../components/editForm'
 
 function AdminEditScreen() {
   return (
-    <div>
-      
-    </div>
+    <>
+    <AdminHeader/>
+    <EditForm/>
+    </>
   )
 }
 

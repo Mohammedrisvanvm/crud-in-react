@@ -7,7 +7,8 @@ import { ToastContainer } from "react-toastify";
 import ProfileScreen from "./screens/profileScreen";
 import PrivateRoute from "./components/privateRoute";
 import AdminHomeScreen from "./screens/adminHomeScreen";
-import EditForm from "./components/editForm";
+import AdminEditScreen from "./screens/AdminEditScreen";
+
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/profile" element={<ProfileScreen/>} />
           </Route>
         <Route path="/admin" element={<AdminHomeScreen/>} />
-        <Route path="/admin/editUser" element={<EditForm/>} />
+        <Route path="/admin/editUser" element={<AdminEditScreen/>} />
         </Routes>
       </Router>
     </div>
