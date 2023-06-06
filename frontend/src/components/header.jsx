@@ -6,7 +6,7 @@ import LoggedinHeader from "./LoggedinHeader";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
+
   return (
 
     <header>
@@ -20,7 +20,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
 
-              {userInfo ? <LoggedinHeader userInfo={userInfo}/> : <HeaderController/> }
+              {userInfo ? <LoggedinHeader value={userInfo}/> : <HeaderController/> }
           
               
             </Nav>
