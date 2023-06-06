@@ -32,7 +32,7 @@ function UserInfoTable() {
       <div
         style={{ display: "flex", justifyContent: "flex-end", margin: "50px" }}
       >
-        <Button variant="contained" startIcon={<AddIcon />} size="small">
+        <Button variant="contained" startIcon={<AddIcon />} size="small" onClick={()=>Navigate('/admin/register')}>
           Create User
         </Button>
       </div>

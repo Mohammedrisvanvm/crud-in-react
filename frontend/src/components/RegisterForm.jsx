@@ -33,8 +33,13 @@ const RegisterForm = () => {
     } else {
       try {
         const res = await register({ name, email, password }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        navigate("/");
+        if(userInfo){
+
+          dispatch(setCredentials({ ...res }));
+          navigate("/");
+        }else{
+          navigate("/admin")
+        }
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
