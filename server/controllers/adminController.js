@@ -50,4 +50,13 @@ export const authAdmin = asyncHandler(async (req, res) => {
       throw new Error('User not found');
     }
   });
+
+  export const deleteUser=asyncHandler(async(req,res)=>{
+    
+
+   const user=await User.findByIdAndDelete({_id:req.body.id})
+    res.json({success:true})
+  })
+
+  
   

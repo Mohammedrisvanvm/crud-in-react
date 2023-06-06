@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Toast } from "react-bootstrap";
+import { toast } from "react-toastify";
 import {
   Table,
   TableBody,
@@ -19,17 +20,13 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function UserInfoTable() {
   const [userInfo, setUserInfo] = useState([]);
-  const Navigate=useNavigate()
+  const Navigate = useNavigate();
   useEffect(() => {
     axios.get("http://localhost:5000/admin").then((response) => {
-      console.log(response.data);
       setUserInfo(response.data);
     });
-  }, [setUserInfo]);
-const DeleteUser=()=>{
- console.log("hai");
-
-}
+  }, []);
+ 
   return (
     <>
       <div
@@ -59,15 +56,30 @@ const DeleteUser=()=>{
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>
-                      <IconButton onClick={()=>Navigate(`/admin/editUser/${row._id}`)}>
-                        <EditIcon >
-                        
-                        </EditIcon>
+                      <IconButton
+                        onClick={() => Navigate(`/admin/editUser/${row._id}`)}
+                      >
+                        <EditIcon></EditIcon>
                       </IconButton>
                     </TableCell>
                     <TableCell>
-                      <IconButton onClick={DeleteUser}>
-                        <DeleteIcon  color="error"  />
+                      <IconButton
+                        onClick={() =>
+                          axios
+                            .post("http://localhost:5000/admin/delete", {
+                              id: row._id,
+                            })
+                            .then((response) => {
+                              if (response.data.success) {
+                                toast.success("user deleted");
+                                Navigate(`/admin`)
+                              } else {
+                                toast.error("user not deleted");
+                              }
+                            })
+                        }
+                      >
+                        <DeleteIcon color="error" />
                       </IconButton>
                     </TableCell>
                   </TableRow>

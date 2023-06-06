@@ -24,6 +24,7 @@ function App() {
           </Route>
         <Route path="/admin" element={<AdminHomeScreen/>} />
         <Route path="/admin/editUser/:id" element={<AdminEditScreen/>} />
+        <Route path="/admin/register" element={<RegisterScreen/>} />
         </Routes>
       </Router>
     </div>
