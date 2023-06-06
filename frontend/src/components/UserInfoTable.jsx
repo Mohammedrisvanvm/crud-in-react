@@ -1,12 +1,11 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import axios from 'axios'
 
-function MyTable() {
-  const data = [
-    { id: 1, name: 'John Doe', age: 25 },
-    { id: 2, name: 'Jane Smith', age: 30 },
-    // Additional data...
-  ];
+function UserInfoTable() {
+  useEffect(async ()=>{
+   let user= axios.get('/')
+  })
 
   return (
     <TableContainer>
@@ -32,4 +31,4 @@ function MyTable() {
   );
 }
 
-export default MyTable;
+export default UserInfoTable;

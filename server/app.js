@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from 'cors'
 import cookieParser from "cookie-parser";
 import userRoute from "./routes/userRouter.js";
+import adminRoute from './routes/adminRoute.js'
 import { errorHandler, notfound } from "./middleware/errorMiddleware.js";
 import dbConnect from "./config/dataBase.js";
 
@@ -22,6 +23,7 @@ app.use(
   })
 );
 app.use("/users", userRoute);
+app.use("/admin",adminRoute);
 app.get("/", (req, res) => {
   console.log("server is ready");
 });

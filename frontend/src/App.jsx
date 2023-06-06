@@ -6,6 +6,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import { ToastContainer } from "react-toastify";
 import ProfileScreen from "./screens/profileScreen";
 import PrivateRoute from "./components/privateRoute";
+import AdminHomeScreen from "./screens/adminHomeScreen";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="" element={<PrivateRoute/>} >
           <Route path="/profile" element={<ProfileScreen/>} />
           </Route>
+        <Route path="/admin" element={<AdminHomeScreen/>} />
         </Routes>
       </Router>
     </div>
