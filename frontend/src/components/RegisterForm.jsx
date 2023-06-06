@@ -1,23 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/AuthSlice";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+const dispatch=useDispatch()
+const navigate=useNavigate()
   const submitHandler = async (e) => {
     e.preventDefault();
     if(password!==confirmPassword){
       toast.error('password do not match')
     }else{
       try {
-        const res=await 
-      } catch (error) {
-        
+        const res=await register({name,email,password}).unwrap()
+        dispatch(setCredentials({...res}))
+        navigate('/')
+      } catch (err) {
+        toast.error(err?.data?.message||err.error)
       }
     }
   };
