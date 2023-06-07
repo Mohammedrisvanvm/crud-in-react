@@ -12,7 +12,7 @@ function Modal({ open, setOpen, id }) {
     const [files, setFiles] = useState("");
     const [errMessage, setErrMessage] = useState(null);
     const dispatch = useDispatch();
-  
+  console.log(id);
     async function saveHandler() {
        await axios.post(
         "http://localhost:5000/users/edit-profile",

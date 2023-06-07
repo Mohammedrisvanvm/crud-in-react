@@ -13,6 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       password: user.password,
+      image:user.image
     });
   } else {
     res.status(401);
@@ -35,6 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       password: user.password,
+    
     });
   } else {
     res.status(400);
@@ -82,7 +84,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 export const editProfile = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log(req.body,111111);
     await User.findByIdAndUpdate(req.body.id, {
       $set: {
         image: req.file.filename,

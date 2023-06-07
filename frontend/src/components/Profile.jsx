@@ -7,21 +7,28 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
+import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../slices/userApiSlice";
+import { logout } from "../slices/AuthSlice";
 
- const Profile = () => {
-
+const Profile = () => {
   const baseImgUrl = "http://localhost:5000/uploads/";
   const value = useSelector((state) => {
     return state.auth;
-
-
   });
-  console.log(value);
-  async function handleLogout() {
-    let data = await axios.get("/logout");
-    console.log(data);
 
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [logoutApiCall] = useLogoutMutation();
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,7 +43,7 @@ import Modal from "./Modal";
     >
       <CardContent>
         <Avatar
-          src={baseImgUrl + value.image }
+          src={baseImgUrl + value.userInfo.image}
           alt=""
           sx={{
             width: 200,
@@ -48,10 +55,10 @@ import Modal from "./Modal";
           }}
         />
         <Typography variant="h4" component="div" align="center" gutterBottom>
-          {value.name}
+          {value.userInfo.name}
         </Typography>
         <Typography color="text.secondary" align="center" gutterBottom>
-          {value.email}
+          {value.userInfo.email}
         </Typography>
         <Button
           variant="contained"
@@ -66,12 +73,12 @@ import Modal from "./Modal";
           color="error"
           fullWidth
           sx={{ marginBottom: 1 }}
-          onClick={handleLogout}
+          onClick={logoutHandler}
         >
           Logout
         </Button>
       </CardContent>
-      <Modal open={open}  id={value._id} setOpen={setOpen} />
+      <Modal open={open} id={value.userInfo._id} setOpen={setOpen} />
     </Card>
   );
 };

@@ -29,10 +29,11 @@ function UserInfoTable() {
   const adminLogout = () => {
     axios.get("http://localhost:5000/admin/adminLogout").then((response) => {
       console.log(response.data);
-      toast.success(response.data.message)
+      toast.success(response.data.message);
       Navigate("/admin");
     });
   };
+  const baseUrl='http://localhost:5000/uploads/'
   return (
     <>
       <div
@@ -54,6 +55,9 @@ function UserInfoTable() {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
+
+                  <TableCell>image</TableCell>
+
                   <TableCell>Name</TableCell>
                   <TableCell>Email</TableCell>
                   <TableCell>Edit</TableCell>
@@ -66,6 +70,13 @@ function UserInfoTable() {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.email}</TableCell>
+                    <TableCell>
+                      <img
+                        src={baseUrl + row.image}
+                        alt="User Image"
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                    </TableCell>
                     <TableCell>
                       <IconButton
                         onClick={() => Navigate(`/admin/editUser/${row._id}`)}
@@ -105,8 +116,7 @@ function UserInfoTable() {
       >
         <Button
           variant="contained"
-          onClick={() => 
-            adminLogout()}
+          onClick={() => adminLogout()}
           startIcon={<LogoutIcon />}
           size="small"
         >
