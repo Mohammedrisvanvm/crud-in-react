@@ -9,13 +9,14 @@ function HomeScreen() {
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const storedUserInfo = JSON.parse(localStorage.getItem("userinfo"));
+    
     setUser(storedUserInfo);
   }, []);
 
   return (
     <>
-      <Header />
+      { userInfo || user ? <Header session={true} /> :<Header session={false}/> }
       {userInfo || user ? <LoggedinScreen /> : <Hero />}
     </>
   );
