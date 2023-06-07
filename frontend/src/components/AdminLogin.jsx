@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+;
 
 function Copyright(props) {
   return (
@@ -31,10 +35,22 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function AdminSignIn() {
+    const navigate=useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-   
+    axios.post('http://localhost:5000/admin/adminAuth',{
+        email: data.get('email'),
+        password: data.get('password'),
+    }).then((response)=>{
+       if (response.data.admin){
+        toast.success('welcome admin')
+         navigate('/admin/adminHome')
+       }else{
+        toast.error('invalid email or password')
+       }
+    })
+  
   };
 
   return (
@@ -88,18 +104,7 @@ export default function AdminSignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
+            
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

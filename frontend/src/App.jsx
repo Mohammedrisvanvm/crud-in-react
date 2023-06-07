@@ -24,7 +24,7 @@ function App() {
           <Route path="/profile" element={<ProfileScreen/>} />
           </Route>
         <Route path="/admin" element={<AdminLoginScreen/>} />
-        <Route path="/adminHome" element={<AdminHomeScreen/>} />
+        <Route path="/admin/adminHome" element={<AdminHomeScreen/>} />
         <Route path="/admin/editUser/:id" element={<AdminEditScreen/>} />
         <Route path="/admin/register" element={<RegisterScreen/>} />
         </Routes>

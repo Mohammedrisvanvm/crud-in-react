@@ -26,13 +26,24 @@ function UserInfoTable() {
       setUserInfo(response.data);
     });
   }, []);
- 
+  const adminLogout = () => {
+    axios.get("http://localhost:5000/admin/adminLogout").then((response) => {
+      console.log(response.data);
+      toast.success(response.data.message)
+      Navigate("/admin");
+    });
+  };
   return (
     <>
       <div
         style={{ display: "flex", justifyContent: "flex-end", margin: "50px" }}
       >
-        <Button variant="contained" startIcon={<AddIcon />} size="small" onClick={()=>Navigate('/admin/register')}>
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          size="small"
+          onClick={() => Navigate("/admin/register")}
+        >
           Create User
         </Button>
       </div>
@@ -72,7 +83,7 @@ function UserInfoTable() {
                             .then((response) => {
                               if (response.data.success) {
                                 toast.success("user deleted");
-                                Navigate(`/admin`)
+                                Navigate(`/admin`);
                               } else {
                                 toast.error("user not deleted");
                               }
@@ -92,7 +103,13 @@ function UserInfoTable() {
       <div
         style={{ display: "flex", justifyContent: "center", margin: "50px" }}
       >
-        <Button variant="contained" startIcon={<LogoutIcon />} size="small">
+        <Button
+          variant="contained"
+          onClick={() => 
+            adminLogout()}
+          startIcon={<LogoutIcon />}
+          size="small"
+        >
           Logout
         </Button>
       </div>

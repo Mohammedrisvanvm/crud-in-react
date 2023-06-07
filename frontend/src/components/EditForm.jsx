@@ -42,7 +42,7 @@ function EditForm() {
           .then((response) => {
             if (response.data.success) {
               toast.success("profile updated");
-              navigate("/admin");
+              navigate("/admin/adminHome");
             }
           });
       } catch (err) {
