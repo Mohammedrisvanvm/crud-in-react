@@ -8,6 +8,7 @@ import ProfileScreen from "./screens/profileScreen";
 import PrivateRoute from "./components/privateRoute";
 import AdminHomeScreen from "./screens/adminHomeScreen";
 import AdminEditScreen from "./screens/AdminEditScreen";
+import AdminLoginScreen from "./screens/AdminLoginScreen";
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
           <Route path="" element={<PrivateRoute/>} >
           <Route path="/profile" element={<ProfileScreen/>} />
           </Route>
-        <Route path="/admin" element={<AdminHomeScreen/>} />
+        <Route path="/admin" element={<AdminLoginScreen/>} />
+        <Route path="/adminHome" element={<AdminHomeScreen/>} />
         <Route path="/admin/editUser/:id" element={<AdminEditScreen/>} />
         <Route path="/admin/register" element={<RegisterScreen/>} />
         </Routes>
