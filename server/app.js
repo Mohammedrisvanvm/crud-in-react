@@ -6,7 +6,7 @@ import userRoute from "./routes/userRouter.js";
 import adminRoute from './routes/adminRoute.js'
 import { errorHandler, notfound } from "./middleware/errorMiddleware.js";
 import dbConnect from "./config/dataBase.js";
-
+import path from 'path'
 dotenv.config();
 
 const app = express();
@@ -14,6 +14,8 @@ dbConnect();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+
+app.use(express.static(path.resolve() + "/public"));
 app.use(
   cors({
     origin: [

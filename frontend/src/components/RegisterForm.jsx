@@ -20,8 +20,16 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(null);
+ 
+
+  useEffect(() => {
+    const storedUserInfo = JSON.parse(localStorage.getItem("userinfo"));
+    
+    setUser(storedUserInfo);
+  }, []);
   useEffect(()=>{
-    if(userInfo){
+    if(user){
       navigate('/')
     }
   },[userInfo,navigate])
