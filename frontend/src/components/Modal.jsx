@@ -9,12 +9,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 function Modal({ open, setOpen, id }) {
-    const [files, setFiles] = useState("");
-    const [errMessage, setErrMessage] = useState(null);
-    const dispatch = useDispatch();
-  console.log(id);
-    async function saveHandler() {
-       await axios.post(
+  const [files, setFiles] = useState("");
+  const [errMessage, setErrMessage] = useState(null);
+  const dispatch = useDispatch();
+
+  async function saveHandler() {
+    await axios
+      .post(
         "http://localhost:5000/users/edit-profile",
         { files, id },
         {
@@ -22,12 +23,11 @@ function Modal({ open, setOpen, id }) {
             "Content-Type": "multipart/form-data",
           },
         }
-      ).then((response)=>{
-console.log(response);
-setOpen(false)
-      })
-    
-    }
+      )
+      .then((response) => {
+        setOpen(false);
+      });
+  }
 
   return (
     <div>
@@ -46,7 +46,7 @@ setOpen(false)
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={saveHandler} >Save</Button>
+          <Button onClick={saveHandler}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
