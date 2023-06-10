@@ -8,19 +8,26 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useUserProfileUpdateMutation } from "../slices/userApiSlice";
+
 
 function Modal({ open, setOpen }) {
-  const [files, setFiles] = useState("");
+  const [file, setFiles] = useState("");
   const { userInfo } = useSelector((state) => state.auth);
-const [update,{loading}]=useUserProfileUpdateMutation()
   const id = userInfo._id;
-  console.log(id,files);
-  const saveHandler = async() => {
-    await update({ id,files }).unwrap();
-     setOpen(false) 
-  };
 
+
+  const saveHandler = async () => {
+    await axios.post(
+      "http://localhost:5000/users/editProfile",
+      { file, id },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    setOpen(false);
+  };
   return (
     <div>
       <Dialog open={open} onClose={() => setOpen(false)}>
@@ -33,6 +40,7 @@ const [update,{loading}]=useUserProfileUpdateMutation()
             type="file"
             className="mt-4 mb-2"
             accept="image/*"
+           
             onChange={(e) => setFiles(e.target.files[0])}
           />
         </DialogContent>

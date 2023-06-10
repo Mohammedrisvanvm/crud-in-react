@@ -35,8 +35,9 @@ export const userApiSlice=apiSlice.injectEndpoints({
         }),
         userProfileUpdate:builder.mutation({
             query:(data)=>({
-                url:`${ADMIN_URL}/editProfile`,
+                url:`${USER_URL}/editProfile`,
                 method: 'PUT',
+                
                 body:data,
             })
         }),
