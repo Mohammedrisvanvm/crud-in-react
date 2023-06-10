@@ -5,29 +5,21 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useUserProfileUpdateMutation } from "../slices/userApiSlice";
 
-function Modal({ open, setOpen, id }) {
+function Modal({ open, setOpen }) {
   const [files, setFiles] = useState("");
-  const [errMessage, setErrMessage] = useState(null);
-  const dispatch = useDispatch();
-
-  async function saveHandler() {
-    await axios
-      .post(
-        "http://localhost:5000/users/edit-profile",
-        { files, id },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((response) => {
-        setOpen(false);
-      });
-  }
+  const { userInfo } = useSelector((state) => state.auth);
+const [update,{loading}]=useUserProfileUpdateMutation()
+  const id = userInfo._id;
+  console.log(id,files);
+  const saveHandler = async() => {
+    await update({ id,files }).unwrap();
+     setOpen(false) 
+  };
 
   return (
     <div>

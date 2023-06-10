@@ -21,19 +21,18 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
- 
 
   useEffect(() => {
     const storedUserInfo = JSON.parse(localStorage.getItem("userinfo"));
-    
+
     setUser(storedUserInfo);
   }, []);
-  useEffect(()=>{
-    if(user){
-      navigate('/')
+  useEffect(() => {
+    if (user) {
+      navigate("/");
     }
-  },[userInfo,navigate])
-  
+  }, [userInfo, navigate]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -41,14 +40,13 @@ const RegisterForm = () => {
     } else {
       try {
         const res = await register({ name, email, password }).unwrap();
-        if(userInfo){
-
+        if (userInfo) {
           dispatch(setCredentials({ ...res }));
-          toast.success('account created successfully')
+          toast.success("account created successfully");
           navigate("/");
-        }else{
-          toast.success('created a user account')
-          navigate("/admin")
+        } else {
+          toast.success("created a user account");
+          navigate("/admin");
         }
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -60,7 +58,7 @@ const RegisterForm = () => {
     <>
       <Container className="d-flex justify-content-center py-3">
         <Card className="p-5 d-flex flex-column align-items-center hero-card bg-light w-75 justify-content-center">
-        <h1>Register</h1>
+          <h1>Register</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group className="my-2" controlId="name">
               <Form.Label>Name</Form.Label>
@@ -101,7 +99,7 @@ const RegisterForm = () => {
               ></Form.Control>
             </Form.Group>
 
-            {isloading && <Loader/>}
+            {isloading && <Loader />}
             <div className="d-flex justify-content-center py-3">
               <Button type="submit" variant="primary" className="mt-3">
                 Register

@@ -4,7 +4,6 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
@@ -78,7 +77,7 @@ const Profile = () => {
           Logout
         </Button>
       </CardContent>
-      <Modal open={open} id={value.userInfo._id} setOpen={setOpen} />
+      <Modal open={open} setOpen={setOpen} />
     </Card>
   );
 };

@@ -83,6 +83,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 export const editProfile = async (req, res) => {
+  console.log(req.files,req.body);
+  const image=req.file
   try {
     console.log(req.body,111111);
     await User.findByIdAndUpdate(req.body.id, {

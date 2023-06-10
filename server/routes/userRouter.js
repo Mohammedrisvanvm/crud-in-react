@@ -29,6 +29,6 @@ router
   .route("/profile")
   .get(protect, getUserProfile)
 
-router.post("/edit-profile", upload.single("files"), editProfile);
+router.put("/editProfile", upload.single("files"), editProfile);
 
 export default router;
