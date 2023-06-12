@@ -15,10 +15,11 @@ const Profile = () => {
   const value = useSelector((state) => {
     return state.auth;
   });
-
+console.log(value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
+
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();

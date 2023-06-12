@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
     },
     image:{
       type:String,
+      default:"DSC_6268.jpg"
       
     }
   },

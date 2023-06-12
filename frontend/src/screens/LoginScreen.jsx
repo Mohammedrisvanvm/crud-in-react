@@ -5,11 +5,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
-  const user = useSelector((state) => state.auth);
+  const {userInfo} = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (user) navigate("/");
-  });
+    console.log(userInfo);
+    if (userInfo !==null) navigate("/");
+  },[]);
   return (
     <>
       <Header />

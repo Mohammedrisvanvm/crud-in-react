@@ -14,7 +14,6 @@ dbConnect();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-
 app.use(express.static(path.resolve() + "/public"));
 app.use(
   cors({

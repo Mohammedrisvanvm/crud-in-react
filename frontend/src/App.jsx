@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -9,9 +9,16 @@ import PrivateRoute from "./components/privateRoute";
 import AdminHomeScreen from "./screens/adminHomeScreen";
 import AdminEditScreen from "./screens/AdminEditScreen";
 import AdminLoginScreen from "./screens/AdminLoginScreen";
+import axios from "axios";
 
 
 function App() {
+const [admin,setadmin]=useState(null)
+  useEffect(()=>{
+    axios.get("http://localhost:5000/admin/").then((response)=>{
+setadmin(response.data.admin)
+    })
+  })
   return (
     <div>
       <ToastContainer />

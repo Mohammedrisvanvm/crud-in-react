@@ -46,7 +46,7 @@ const RegisterForm = () => {
           navigate("/");
         } else {
           toast.success("created a user account");
-          navigate("/admin");
+          navigate("/");
         }
       } catch (err) {
         toast.error(err?.data?.message || err.error);

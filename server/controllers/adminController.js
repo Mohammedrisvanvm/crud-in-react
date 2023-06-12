@@ -5,35 +5,38 @@ import jwt from "jsonwebtoken";
 
 export const adminHome = async (req, res) => {
   const userInfo = await User.find();
-
   res.json(userInfo);
 };
 export const authAdmin = asyncHandler(async (req, res) => {
-  console.log(req.body);
+
+
   const { email, password } = req.body;
+
   const admin = await User.findOne({ email, admin: true });
-  
+
   if (!admin) {
-    res.json({ admin: false });
+    return res.json({ admin: false });
   }
+
   if (admin && (await admin.matchPassword(password))) {
-    console.log(admin);
-   
-      const token = jwt.sign({ id:admin._id }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
-      });
-    
-      res.cookie("admin", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-      });
-    
-   
-    res.status(201).json({ admin: true });
+
+
+    const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
+      expiresIn: '30d',
+    });
+
+
+
+    res.cookie('admin', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+
+   res.status(201).json({ admin: true });
   } else {
-    throw new Error("invalid email or password");
+    throw new Error('Invalid email or password');
   }
 });
 export const userUnique = asyncHandler(async (req, res) => {

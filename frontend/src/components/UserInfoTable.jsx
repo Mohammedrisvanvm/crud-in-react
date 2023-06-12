@@ -23,6 +23,7 @@ function UserInfoTable() {
   const Navigate = useNavigate();
   useEffect(() => {
     axios.get("http://localhost:5000/admin").then((response) => {
+      console.log(response.data);
       setUserInfo(response.data);
     });
   }, []);
@@ -94,7 +95,7 @@ function UserInfoTable() {
                             .then((response) => {
                               if (response.data.success) {
                                 toast.success("user deleted");
-                                Navigate(`/admin`);
+                                Navigate(`/admin/adminHome`);
                               } else {
                                 toast.error("user not deleted");
                               }
