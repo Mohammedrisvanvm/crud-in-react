@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col, Container, Card } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../slices/AuthSlice";
-import { useRegisterMutation } from "../slices/userApiSlice";
 import Loader from "./Loader";
 
 const RegisterForm = () => {
@@ -15,7 +13,6 @@ const RegisterForm = () => {
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [register, { isloading }] = useRegisterMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

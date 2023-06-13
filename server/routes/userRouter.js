@@ -18,6 +18,7 @@ import {
   getUserProfile,
   logoutUser,
   registerUser,
+  userCheck,
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 router.post("/", registerUser);
@@ -26,5 +27,6 @@ router.post("/logout", logoutUser);
 router.route("/profile").get(protect, getUserProfile);
 
 router.post("/editProfile", upload.single("file"), editProfile);
+router.get('/userCheck',userCheck)
 
 export default router;

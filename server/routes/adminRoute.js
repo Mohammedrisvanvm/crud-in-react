@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { adminHome, authAdmin, deleteUser, logoutadmin, updateUserProfile, userUnique } from "../controllers/adminController.js";
+import { adminCheck, adminHome, authAdmin, deleteUser, logoutadmin, updateUserProfile, userUnique } from "../controllers/adminController.js";
 
 
 const route=Router()
 
 route.get('/', adminHome)
+route.get('/adminCheck',adminCheck)
 route.post('/adminAuth',authAdmin)
 route.get('/userUnique/:id',userUnique)
 route.put('/profile',updateUserProfile)

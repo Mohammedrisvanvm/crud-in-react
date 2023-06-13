@@ -22,19 +22,19 @@ function UserInfoTable() {
   const [userInfo, setUserInfo] = useState([]);
   const Navigate = useNavigate();
   useEffect(() => {
-    axios.get("http://localhost:5000/admin").then((response) => {
+    axios.get("/admin").then((response) => {
       console.log(response.data);
       setUserInfo(response.data);
     });
   }, []);
   const adminLogout = () => {
-    axios.get("http://localhost:5000/admin/adminLogout").then((response) => {
+    axios.get("/admin/adminLogout").then((response) => {
       console.log(response.data);
       toast.success(response.data.message);
       Navigate("/admin");
     });
   };
-  const baseUrl='http://localhost:5000/uploads/'
+  const baseUrl = "http://localhost:5000/uploads/";
   return (
     <>
       <div
@@ -89,7 +89,7 @@ function UserInfoTable() {
                       <IconButton
                         onClick={() =>
                           axios
-                            .post("http://localhost:5000/admin/delete", {
+                            .post("/admin/delete", {
                               id: row._id,
                             })
                             .then((response) => {

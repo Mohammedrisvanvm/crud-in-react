@@ -77,3 +77,20 @@ export const logoutadmin = asyncHandler(async (req, res) => {
   });
   res.status(200).json({ message: "admin logged out " });
 });
+export const adminCheck =async (req, res) => {
+  try {
+    const token = req.cookies.admin;
+    if (!token)
+        return res.json({ loggedIn: false, error: true, message: "no token" });
+
+    const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(verifiedJWT.id, { password: 0 });
+    if (!user) {
+        return res.json({ loggedIn: false });
+    }
+    return res.json({ user, loggedIn: true });
+} catch (err) {
+    console.log(err)
+    res.json({ loggedIn: false, error: err });
+}
+};

@@ -12,13 +12,13 @@ import axios from "axios";
 
 function Modal({ open, setOpen }) {
   const [file, setFiles] = useState("");
-  const { userInfo } = useSelector((state) => state.auth);
-  const id = userInfo._id;
+  const { user } = useSelector((state) => state);
+  const id = user.details._id;
 
 
   const saveHandler = async () => {
     await axios.post(
-      "http://localhost:5000/users/editProfile",
+      "/users/editProfile",
       { file, id },
       {
         headers: {

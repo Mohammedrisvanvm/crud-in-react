@@ -1,12 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../slices/AuthSlice";
-import { apiSlice } from "../slices/apiSlice";
+import { createStore } from "redux";
 
-const store = configureStore({
-  reducer: { auth: authReducer, [apiSlice.reducerPath]: apiSlice.reducer },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true,
-});
+const initialState = {
+  user: { login: null },
+  admin: { login: null },
+  refresh: true,
+};
 
-export default store;
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case "user":
+      return { ...state, user: action.payload };
+    case "admin":
+      return { ...state, admin: action.payload };
+    case "refresh":
+      return { ...state, refresh: !state.refresh };
+    default:
+      return state;
+  }
+}
+
+export default createStore(reducer);

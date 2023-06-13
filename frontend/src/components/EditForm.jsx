@@ -4,7 +4,6 @@ import { Form, Button, Container, Card } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useUserUpdateMutation } from "../slices/userApiSlice";
 function EditForm() {
   let { id } = useParams();
 

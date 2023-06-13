@@ -1,25 +1,39 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import jwt from "jsonwebtoken";
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
 
+  const token = jwt.sign({ user: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+
   if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      image:user.image
-    });
+    res
+      .status(200)
+      .cookie("user", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      })
+      .json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        image: user.image,
+      });
   } else {
     res.status(401);
-    throw new Error("invalid email or password");
+    throw new Error("Invalid email or password");
   }
 });
+
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -30,14 +44,24 @@ const registerUser = asyncHandler(async (req, res) => {
   }
   const user = await User.create({ name, email, password });
   if (user) {
-    generateToken(res, user._id);
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    
+    const token = jwt.sign({ user: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
     });
+
+    res
+      .status(201)
+      .json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      })
+      .cookie("user", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
   } else {
     res.status(400);
     throw new Error("invalid user");
@@ -45,7 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie("jwt", "", {
+  res.cookie("user", "", {
     httpOnly: true,
     expires: new Date(0),
   });
@@ -74,7 +98,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
     res.status(200).json({
       _id: updatedUser._id,
-      name: updatedUser.name, 
+      name: updatedUser.name,
       email: updatedUser.email,
     });
   } else {
@@ -83,9 +107,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 export const editProfile = async (req, res) => {
-
   try {
-    const image=req.file.filename
+    const image = req.file.filename;
 
     await User.findByIdAndUpdate(req.body.id, {
       $set: {
@@ -97,315 +120,25 @@ export const editProfile = async (req, res) => {
     res.json({ error: true, message: "Something went wrong" });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const userCheck = async (req, res) => {
+  try {
+    const token = req.cookies.user;
+   
+    if (!token)
+      return res.json({ loggedIn: false, error: true, message: "no token" });
+
+    const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(verifiedJWT.user, { password: 0 });
+   
+    if (!user) {
+      return res.json({ loggedIn: false });
+    }
+    return res.json({ user, loggedIn: true });
+  } catch (err) {
+    console.log(err);
+    res.json({ loggedIn: false, error: err });
+  }
+};
 
 export {
   authUser,

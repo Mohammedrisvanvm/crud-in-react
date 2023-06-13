@@ -1,15 +1,14 @@
 import React from "react";
 import { NavDropdown, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { logout } from "../slices/AuthSlice";
-import { useLogoutMutation } from "../slices/userApiSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const LoggedinHeader = ({ value }) => {
+  const {user}=useSelector(state=>state)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [logoutApiCall] = useLogoutMutation();
+
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
@@ -21,7 +20,7 @@ const LoggedinHeader = ({ value }) => {
   };
   return (
     <>
-      <NavDropdown title={value.name} id="username">
+      <NavDropdown title={user.details.name} id="username">
         <LinkContainer to={`/profile`}>
           <NavDropdown.Item>profile</NavDropdown.Item>
         </LinkContainer>

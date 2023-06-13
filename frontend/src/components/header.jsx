@@ -1,28 +1,22 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import HeaderController from "./HeaderController";
-import {LinkContainer} from 'react-router-bootstrap'
-import { useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import LoggedinHeader from "./LoggedinHeader";
 
-const Header = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+const Header = ({login}) => {
+
 
   return (
-
     <header>
-  
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <LinkContainer to={'/'}>
-          <Navbar.Brand >CRUD App</Navbar.Brand>
-          </LinkContainer >
+          <LinkContainer to={"/"}>
+            <Navbar.Brand>CRUD App</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-
-              {userInfo ? <LoggedinHeader value={userInfo}/> : <HeaderController/> }
-          
-              
+              {login ? <LoggedinHeader/> : <HeaderController/>}
             </Nav>
           </Navbar.Collapse>
         </Container>

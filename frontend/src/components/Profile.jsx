@@ -7,23 +7,18 @@ import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
-import { useLogoutMutation } from "../slices/userApiSlice";
-import { logout } from "../slices/AuthSlice";
+import axios from "axios";
 
 const Profile = () => {
   const baseImgUrl = "http://localhost:5000/uploads/";
-  const value = useSelector((state) => {
-    return state.auth;
-  });
-console.log(value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [logoutApiCall] = useLogoutMutation();
-
+  const { user } = useSelector((state) => state);
+  console.log(user);
   const logoutHandler = async () => {
     try {
-      await logoutApiCall().unwrap();
-      dispatch(logout());
+      axios.get("users/logout");
+      dispatch(refresh());
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -43,7 +38,7 @@ console.log(value);
     >
       <CardContent>
         <Avatar
-          src={baseImgUrl + value.userInfo.image}
+          src={baseImgUrl + ""}
           alt=""
           sx={{
             width: 200,
@@ -55,10 +50,10 @@ console.log(value);
           }}
         />
         <Typography variant="h4" component="div" align="center" gutterBottom>
-          {value.userInfo.name}
+          {""}
         </Typography>
         <Typography color="text.secondary" align="center" gutterBottom>
-          {value.userInfo.email}
+          {""}
         </Typography>
         <Button
           variant="contained"
