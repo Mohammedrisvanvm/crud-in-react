@@ -20,7 +20,6 @@ const Profile = () => {
     try {
       axios.get("users/logout").then((res) => {
         dispatch(refresh());
-
         navigate("/");
       });
     } catch (err) {

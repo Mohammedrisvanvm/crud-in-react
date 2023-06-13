@@ -8,16 +8,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 function Modal({ open, setOpen }) {
   const [file, setFiles] = useState("");
+  const dispatch=useDispatch()
   const { user } = useSelector((state) => state);
   const id = user.details._id;
 
 
   const saveHandler = async () => {
-    await axios.post(
+    let {data}=await axios.post(
       "/users/editProfile",
       { file, id },
       {
@@ -26,7 +28,14 @@ function Modal({ open, setOpen }) {
         },
       }
     );
-    setOpen(false);
+    if (data.error) {
+      toast.error(data.message)
+      
+    }else{
+
+      dispatch({type:"refresh"})
+      setOpen(false);
+    }
   };
   return (
     <div>
