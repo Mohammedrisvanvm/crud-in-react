@@ -4,7 +4,6 @@ import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const adminHome = async (req, res) => {
-  console.log(req.query.search);
   let userInfo;
 
   if (req.query.search) {
@@ -16,7 +15,6 @@ export const adminHome = async (req, res) => {
     userInfo = await User.find().lean();
   }
 
-  console.log(userInfo);
   res.json(userInfo);
 };
 export const authAdmin = asyncHandler(async (req, res) => {

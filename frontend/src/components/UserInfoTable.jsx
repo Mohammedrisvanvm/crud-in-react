@@ -68,7 +68,9 @@ function UserInfoTable({ search, setSearch }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {userInfo.map((row, index) => (
+
+              
+                {userInfo ? userInfo.map((row, index) => (
                   <TableRow key={row._id}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{row.name}</TableCell>
@@ -111,7 +113,7 @@ function UserInfoTable({ search, setSearch }) {
                       </IconButton>
                     </TableCell>
                   </TableRow>
-                ))}
+                )): "No Data Found"}
               </TableBody>
             </Table>
           </TableContainer>
