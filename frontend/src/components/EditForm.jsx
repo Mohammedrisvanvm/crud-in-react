@@ -12,11 +12,10 @@ function EditForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [updateProfile, { isLoading }] = useUserUpdateMutation();
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/admin/userUnique/${userid}`)
+      .get(`admin/userUnique/${userid}`)
       .then((response) => {
         console.log(response);
         setEmail(response.data.email);
@@ -32,7 +31,7 @@ function EditForm() {
     } else {
       try {
         await axios
-          .put("http://localhost:5000/admin/profile", {
+          .put("/admin/profile", {
             id: userid,
             name: name,
             email: email,
@@ -41,7 +40,7 @@ function EditForm() {
           .then((response) => {
             if (response.data.success) {
               toast.success("profile updated");
-              navigate("/admin/adminHome");
+              navigate(-1);
             }
           });
       } catch (err) {

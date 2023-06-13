@@ -8,8 +8,6 @@ export const adminHome = async (req, res) => {
   res.json(userInfo);
 };
 export const authAdmin = asyncHandler(async (req, res) => {
-
-
   const { email, password } = req.body;
 
   const admin = await User.findOne({ email, admin: true });
@@ -19,24 +17,20 @@ export const authAdmin = asyncHandler(async (req, res) => {
   }
 
   if (admin && (await admin.matchPassword(password))) {
-
-
     const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, {
-      expiresIn: '30d',
+      expiresIn: "30d",
     });
 
-
-
-    res.cookie('admin', token, {
+    res.cookie("admin", token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
-   res.status(201).json({ admin: true });
+    res.status(201).json({ admin: true });
   } else {
-    throw new Error('Invalid email or password');
+    throw new Error("Invalid email or password");
   }
 });
 export const userUnique = asyncHandler(async (req, res) => {
@@ -77,20 +71,20 @@ export const logoutadmin = asyncHandler(async (req, res) => {
   });
   res.status(200).json({ message: "admin logged out " });
 });
-export const adminCheck =async (req, res) => {
+export const adminCheck = async (req, res) => {
   try {
     const token = req.cookies.admin;
     if (!token)
-        return res.json({ loggedIn: false, error: true, message: "no token" });
+      return res.json({ loggedIn: false, error: true, message: "no token" });
 
     const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(verifiedJWT.id, { password: 0 });
     if (!user) {
-        return res.json({ loggedIn: false });
+      return res.json({ loggedIn: false });
     }
     return res.json({ user, loggedIn: true });
-} catch (err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
     res.json({ loggedIn: false, error: err });
-}
+  }
 };

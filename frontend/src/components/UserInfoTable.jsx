@@ -17,20 +17,26 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import LogoutIcon from "@mui/icons-material/Logout";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-function UserInfoTable() {
+function UserInfoTable({ search, setSearch }) {
+  const [refresh, setRefresh] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
+  console.log(search);
+  const dispatch = useDispatch();
   const Navigate = useNavigate();
-  useEffect(() => {
+  useEffect(async () => {
     axios.get("/admin").then((response) => {
-      console.log(response.data);
       setUserInfo(response.data);
     });
-  }, []);
+
+    let { data } = await axios.get("/admin/users?search=" + search);
+    setUsers(data);
+  }, [refresh, search]);
   const adminLogout = () => {
     axios.get("/admin/adminLogout").then((response) => {
-      console.log(response.data);
       toast.success(response.data.message);
+      dispatch({ type: "refresh" });
       Navigate("/admin");
     });
   };
@@ -87,20 +93,23 @@ function UserInfoTable() {
                     </TableCell>
                     <TableCell>
                       <IconButton
-                        onClick={() =>
-                          axios
-                            .post("/admin/delete", {
-                              id: row._id,
-                            })
-                            .then((response) => {
-                              if (response.data.success) {
-                                toast.success("user deleted");
-                                Navigate(`/admin/adminHome`);
-                              } else {
-                                toast.error("user not deleted");
-                              }
-                            })
-                        }
+                        onClick={() => {
+                          if (window.confirm("Are you sure delete this user")) {
+                            axios
+                              .post("/admin/delete", {
+                                id: row._id,
+                              })
+                              .then((response) => {
+                                if (response.data.success) {
+                                  toast.success("user deleted");
+                                  setRefresh(!refresh);
+                                  Navigate(`/admin`);
+                                } else {
+                                  toast.error("user not deleted");
+                                }
+                              });
+                          }
+                        }}
                       >
                         <DeleteIcon color="error" />
                       </IconButton>

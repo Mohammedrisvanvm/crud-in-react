@@ -19,7 +19,7 @@ const Profile = () => {
   const logoutHandler = async () => {
     try {
       axios.get("users/logout").then((res) => {
-        dispatch(refresh());
+        dispatch({type:"refresh"});
         navigate("/");
       });
     } catch (err) {

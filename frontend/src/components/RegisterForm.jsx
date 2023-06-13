@@ -23,12 +23,11 @@ const RegisterForm = () => {
     } else {
       try {
         axios.post("/users", { name, email, password }).then((res) => {
-          if (res.data) {
-            toast.success("account created successfully");
-            navigate("/");
+          if (res.data.error) {
+            toast.error(res.data.message)
           } else {
-            toast.success("created a user account");
-            navigate("/");
+            toast.success("account created successfully");
+            navigate(-1);
           }
         });
       } catch (err) {

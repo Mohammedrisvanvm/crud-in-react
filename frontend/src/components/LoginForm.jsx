@@ -12,7 +12,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state);
 
   function validationErr() {
     if (
@@ -33,7 +32,7 @@ const LoginForm = () => {
           dispatch({ type: "refresh" });
           navigate("/");
         } else {
-          toast.error(data.message);
+          toast.error(response.data.message);
         }
       });
     } catch (err) {

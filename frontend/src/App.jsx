@@ -23,7 +23,7 @@ function App() {
   const { user, admin, refresh } = useSelector((state) => {
     return state;
   });
-
+  console.log(admin);
   const dispatch = useDispatch();
   useEffect(() => {
     (async function () {
@@ -82,7 +82,7 @@ function App() {
               ></Route>
               <Route
                 path="/admin/*"
-                element={<Navigate to="/admin/" replace={true} />}
+                element={<Navigate to="/admin" replace={true} />}
               ></Route>
             </Routes>
           )}
