@@ -4,7 +4,19 @@ import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const adminHome = async (req, res) => {
-  const userInfo = await User.find();
+  console.log(req.query.search);
+  let userInfo;
+
+  if (req.query.search) {
+    userInfo = await User.find(
+      { name: new RegExp(req.query.search, "i") },
+      { password: 0 }
+    ).lean();
+  } else {
+    userInfo = await User.find().lean();
+  }
+
+  console.log(userInfo);
   res.json(userInfo);
 };
 export const authAdmin = asyncHandler(async (req, res) => {
@@ -88,3 +100,14 @@ export const adminCheck = async (req, res) => {
     res.json({ loggedIn: false, error: err });
   }
 };
+export async function usersSearch(req, res) {
+  try {
+    let users = await User.find(
+      { admin: { $ne: true }, name: new RegExp(req.query.search, "i") },
+      { password: 0 }
+    ).lean();
+    res.json(users);
+  } catch (err) {
+    console.log(err);
+  }
+}

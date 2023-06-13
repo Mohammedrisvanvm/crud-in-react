@@ -22,17 +22,13 @@ import { useDispatch, useSelector } from "react-redux";
 function UserInfoTable({ search, setSearch }) {
   const [refresh, setRefresh] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
-  console.log(search);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  useEffect(async () => {
-    axios.get("/admin").then((response) => {
+  useEffect(() => {
+    axios.get('/admin?search='+search).then((response) => {
       setUserInfo(response.data);
     });
-
-    let { data } = await axios.get("/admin/users?search=" + search);
-    setUsers(data);
-  }, [refresh, search]);
+  }, [refresh,search]);
   const adminLogout = () => {
     axios.get("/admin/adminLogout").then((response) => {
       toast.success(response.data.message);
@@ -63,10 +59,10 @@ function UserInfoTable({ search, setSearch }) {
                 <TableRow>
                   <TableCell>ID</TableCell>
 
-                  <TableCell>image</TableCell>
 
                   <TableCell>Name</TableCell>
                   <TableCell>Email</TableCell>
+                  <TableCell>image</TableCell>
                   <TableCell>Edit</TableCell>
                   <TableCell>Delete</TableCell>
                 </TableRow>

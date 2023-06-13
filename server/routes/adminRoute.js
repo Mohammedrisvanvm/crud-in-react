@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { adminCheck, adminHome, authAdmin, deleteUser, logoutadmin, updateUserProfile, userUnique } from "../controllers/adminController.js";
+import { adminCheck, adminHome, authAdmin, deleteUser, logoutadmin, updateUserProfile, userUnique, usersSearch } from "../controllers/adminController.js";
 
 
 const route=Router()
@@ -11,6 +11,7 @@ route.get('/userUnique/:id',userUnique)
 route.put('/profile',updateUserProfile)
 route.post('/delete',deleteUser)
 route.get('/adminLogout', logoutadmin)
+route.get('/users', usersSearch)
 
 
 
