@@ -2,9 +2,10 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import HeaderController from "./HeaderController";
 import { LinkContainer } from "react-router-bootstrap";
 import LoggedinHeader from "./LoggedinHeader";
+import { useSelector } from "react-redux";
 
-const Header = ({login}) => {
-
+const Header = () => {
+const {user}=useSelector((state)=>state)
 
   return (
     <header>
@@ -16,7 +17,7 @@ const Header = ({login}) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              {login ? <LoggedinHeader/> : <HeaderController/>}
+              { user.details ? <LoggedinHeader/> : <HeaderController/>}
             </Nav>
           </Navbar.Collapse>
         </Container>

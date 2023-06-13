@@ -9,11 +9,11 @@ import axios from "axios";
 function HomeScreen() {
   const { user } = useSelector((state) => state);
 
-
+  console.log(user);
 
   return (
     <>
-      {user ? <Header login={true} /> : <Header login={false} />}
+      {user ? <Header/> : <Header />}
       {user ? <LoggedinScreen /> : <Hero />}
     </>
   );

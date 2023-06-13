@@ -81,7 +81,7 @@ function App() {
                 element={<AdminEditScreen />}
               ></Route>
               <Route
-                path="/admin*"
+                path="/admin/*"
                 element={<Navigate to="/admin/" replace={true} />}
               ></Route>
             </Routes>
@@ -90,7 +90,7 @@ function App() {
             <Routes>
               <Route path="/admin/login" element={<AdminLoginScreen />}></Route>
               <Route
-                path="/admin*"
+                path="/admin/*"
                 element={<Navigate to="/admin/login" replace={true} />}
               ></Route>
             </Routes>

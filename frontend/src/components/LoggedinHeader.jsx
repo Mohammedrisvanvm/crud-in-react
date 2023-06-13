@@ -3,17 +3,17 @@ import { NavDropdown, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const LoggedinHeader = ({ value }) => {
+const LoggedinHeader = () => {
   const {user}=useSelector(state=>state)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
     try {
-      await logoutApiCall().unwrap();
-      dispatch(logout());
-      navigate("/");
+      await axios.get('/users/logout')
+      dispatch({type:"refresh"})
     } catch (err) {
       console.log(err);
     }

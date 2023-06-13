@@ -13,13 +13,16 @@ const Profile = () => {
   const baseImgUrl = "http://localhost:5000/uploads/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state);
+  const { user ,refresh} = useSelector((state) => state);
+
   console.log(user);
   const logoutHandler = async () => {
     try {
-      axios.get("users/logout");
-      dispatch(refresh());
-      navigate("/");
+      axios.get("users/logout").then((res) => {
+        dispatch(refresh());
+
+        navigate("/");
+      });
     } catch (err) {
       console.log(err);
     }
@@ -38,7 +41,7 @@ const Profile = () => {
     >
       <CardContent>
         <Avatar
-          src={baseImgUrl + ""}
+          src={baseImgUrl + user.details.image}
           alt=""
           sx={{
             width: 200,
@@ -50,10 +53,10 @@ const Profile = () => {
           }}
         />
         <Typography variant="h4" component="div" align="center" gutterBottom>
-          {""}
+          {user.details.name}
         </Typography>
         <Typography color="text.secondary" align="center" gutterBottom>
-          {""}
+          {user.details.email}
         </Typography>
         <Button
           variant="contained"

@@ -123,13 +123,13 @@ export const editProfile = async (req, res) => {
 export const userCheck = async (req, res) => {
   try {
     const token = req.cookies.user;
-   
+
     if (!token)
       return res.json({ loggedIn: false, error: true, message: "no token" });
 
     const verifiedJWT = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(verifiedJWT.user, { password: 0 });
-   
+
     if (!user) {
       return res.json({ loggedIn: false });
     }

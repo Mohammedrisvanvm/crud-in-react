@@ -12,13 +12,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const { user } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user]);
+  const { user } = useSelector((state) => state);
 
   function validationErr() {
     if (
