@@ -12,7 +12,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   function validationErr() {
     if (
       email.replaceAll(" ", "") === "" ||
@@ -26,7 +25,7 @@ const LoginForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
+   
       axios.post("/users/auth", { email, password }).then((response) => {
         if (!response.data.error) {
           dispatch({ type: "refresh" });
@@ -34,10 +33,13 @@ const LoginForm = () => {
         } else {
           toast.error(response.data.message);
         }
+      }).catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error(error.message);
+        }
       });
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
   };
 
   return (
@@ -65,7 +67,7 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
-           
+
             <div className="d-flex justify-content-center py-3">
               <Button
                 type="submit"
